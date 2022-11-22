@@ -60,6 +60,8 @@ max_horses <- horse_pop %>%
 knitr::kable(max_horses, caption = "Maximum and Minumum Number of Horses per province")
 ```
 
+As we can see above, Saskatchewan has the highest maximum number of horses at `r max_horses[[2]][9]` and Prince Edward Island has the lowest minimum number of horses at `r max_horses[[3]][7]`.
+
 Below we zoom in and look at the province of Alberta:
 
 ```{r plot_province, fig.width=4, fig.height=4, fig.cap="Historical Number of Horses in Alberta", out.width='100%'}
