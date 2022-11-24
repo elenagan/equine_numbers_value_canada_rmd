@@ -6,7 +6,7 @@ output:
 bibliography: 
   bibliography.bib
 params:
-  province: "Alberta"
+  province: "Manitoba"
 ---
 
 ```{r setup, include=FALSE}
