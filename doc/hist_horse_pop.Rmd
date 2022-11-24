@@ -1,6 +1,12 @@
 ---
 title: "Historical horse population in Canada"
-output: github_document
+output: 
+  html_document:
+    toc: TRUE
+bibliography: 
+  bibliography.bib
+params:
+  province: "Alberta"
 ---
 
 ```{r setup, include=FALSE}
@@ -29,11 +35,11 @@ Horse population data were sourced from the [Government of Canada's Open Data we
 
 ## Methods
 
-The R programming language and the following R packages were used to perform the analysis: knitr and tidyverse. The code used to perform the analysis and create this report can be found here: <https://github.com/ttimbers/equine_numbers_value_canada_rmd>.
+The R programming language [@R] and the following R packages were used to perform the analysis: knitr [@knitr] and tidyverse [@tidyverse]. The code used to perform the analysis and create this report can be found here: <https://github.com/ttimbers/equine_numbers_value_canada_rmd>.
 
 ## Results
 
-```{r plot_horses, fig.width=10, fig.height=3, fig.cap="Historical Number of Horses", out.width='100%'}
+```{r plot_horses, fig.width=10, fig.height=3, fig.cap="Fig.1: Historical Number of Horses in Canada by province"}
 horse_plot <- ggplot(horse_pop, aes(x = Ref_Date, y = Value)) +
   geom_point() +
   geom_line() +
@@ -57,16 +63,16 @@ max_horses <- horse_pop %>%
   group_by(Province) %>% 
   summarize(Maximum = max(Value),
             Minimum = min(Value))
-knitr::kable(max_horses, caption = "Maximum and Minumum Number of Horses per province")
+knitr::kable(max_horses, caption = "Table 1: Maximum and Minumum Number of Horses per province")
 ```
 
 As we can see above, Saskatchewan has the highest maximum number of horses at `r max_horses[[2]][9]` and Prince Edward Island has the lowest minimum number of horses at `r max_horses[[3]][7]`.
 
-Below we zoom in and look at the province of Alberta:
+Below we zoom in and look at the province of `r params$province`:
 
-```{r plot_province, fig.width=4, fig.height=4, fig.cap="Historical Number of Horses in Alberta", out.width='100%'}
+```{r plot_province, fig.width=4, fig.height=4, fig.cap="Fig.2: Historical Number of Horses in a specific province"}
 province_plot <- horse_pop %>% 
-  filter(GEO == "Alberta") %>% 
+  filter(GEO == params$province) %>% 
   ggplot(aes(x = Ref_Date, y = Value)) +
   geom_point() +
   geom_line() +
@@ -78,3 +84,5 @@ province_plot <- horse_pop %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 province_plot
 ```
+
+## References
